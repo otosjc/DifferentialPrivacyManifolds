@@ -8,15 +8,15 @@
 clear; path(pathdef); close all
 addpath('../functions/')
 
-ToSave = 1;
+ToSave = 0;
 
-n10 = 100;
+n10 = 100;                      % replicates per sample size
 minSampleSize = 20;
 maxSampleSize = 500;
 StepSize = 10;
 sequence = [(minSampleSize:StepSize: maxSampleSize)];
 
-tic
+
 d = zeros(length(sequence),n10);
 for ii = 1:length(sequence)
     %- create random sample
@@ -36,7 +36,7 @@ for ii = 1:length(sequence)
 
 
 end
-toc
+
 
 
 %- Create the scatter
@@ -47,7 +47,7 @@ end
 
 
 if ToSave == 1
-    FileName = ['..\..\data\processed\Theorem2_',num2str(length(sequence)),'n1_',num2str(n10),'_Sphere'];
+    FileName = ['..\..\data\processed\Sphere_Sensitivity_',num2str(length(sequence)),'replicates_',num2str(n10)];
     save(FileName,'sequence','d','scatXY')
 end
 

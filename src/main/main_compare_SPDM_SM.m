@@ -1,7 +1,7 @@
 %- Carlos J. Soto cjs7363@psu.edu
 %- Generate random samples using Wishart and then add laplace noise
 
-% This script compares the SPDM approach and the SM approach.
+% This script compares the SPDM Utility and the SM Utility.
 
 clear; path(pathdef); close all
 addpath('../functions/')
@@ -60,7 +60,6 @@ for jj = 1:numRounds
     end
 %- percentage of matrices not SPDM at each sample size
 propNotSPDM = count(ii)/(numRounds);
-
 
 
 if ToSave == 1

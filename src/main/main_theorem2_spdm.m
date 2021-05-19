@@ -9,9 +9,9 @@
 clear; path(pathdef); close all
 addpath('../functions/')
 
-ToSave = 1;
+ToSave = 0;
 
-n10 = 30;
+n10 = 30;                   % replicates per sample size
 minSampleSize = 20;
 maxSampleSize = 500;
 StepSize = 10;
@@ -21,10 +21,7 @@ sequence = [(minSampleSize:StepSize: maxSampleSize)];
 d = zeros(length(sequence),n10);
 for ii = 1:length(sequence)
     %- create random sample
-    % n2 = 10*ii;
     n2 = sequence(ii);
-%     V = [0.8,0.2;   0.2,1.4];
-%     df = 20;
     V = 1/2 * eye(2);
     df = 2;
     r = 1.5;
@@ -48,16 +45,15 @@ for ii = 1:length(sequence)
 end
 
 
-%- Create the scatter
+%- Create the scatter for plots
 scatXY = [];
 for i = 1:n10
     scatXY = [scatXY;[sequence',d(:,i)]];
 end
 
 if ToSave == 1
-    FileName = ['..\..\data\processed\Theorem2_',num2str(length(sequence)),'n1_',num2str(n10)];
+    FileName = ['..\..\data\processed\SPDM_Sensitivity_',num2str(length(sequence)),'replicates_',num2str(n10)];
     save(FileName,'sequence','d','V','df','maxR','scatXY')
-    saveas(gcf,'..\..\images\MeanNeighboringDatasets.png') 
 end
 
 
