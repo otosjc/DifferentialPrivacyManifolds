@@ -5,7 +5,7 @@
 % of each of these samples and compute the distance between these means. 
 % This is simulating the sensitivty.
 
-clear; path(pathdef); close all
+clear; path(pathdef); %close all
 addpath('../functions/')
 
 ToSave = 0;
@@ -21,8 +21,7 @@ d = zeros(length(sequence),n10);
 for ii = 1:length(sequence)
     %- create random sample
     n2 = sequence(ii);
-    r = pi/8;
-    [X] = Create_sim_data_Sphere(n2);    
+    [X,r] = Create_sim_data_Sphere(n2);    
     [Xhat1,~] = frechet_mean_Sphere(X);
 
     
@@ -51,6 +50,36 @@ if ToSave == 1
     save(FileName,'sequence','d','scatXY')
 end
 
+
+
+%-----------------------------------------------------------------------
+%---                    Figure                                      ---%
+%-----------------------------------------------------------------------
+TextSize = 20;
+
+averagesDs = zeros(length(sequence),2);
+bound = repelem(1,length(sequence))./(sequence);
+for i = 1: length(sequence)
+    averagesDs(i,:) = mean(scatXY(scatXY(:,1)== sequence(i),:));
+end
+
+
+figure     
+scatter(scatXY(:,1),scatXY(:,2),2)
+hold on
+plot(averagesDs(:,1),averagesDs(:,2),'LineWidth',2,'Color','Blue')
+hold on
+plot(sequence,bound,'LineWidth',2,'Color','r')
+set(gca, 'YScale', 'log','FontSize', TextSize)
+xlabel('Sample size') 
+ylabel('Distance') 
+xlim([0 500])
+ylim([0.00001 0.1])
+yticks([0.00001 0.0001 0.001 0.01 0.1])
+
+if ToSave == 1
+    saveas(gcf,'..\..\images\Sensitivity_Sphere.png') 
+end
 
 
 

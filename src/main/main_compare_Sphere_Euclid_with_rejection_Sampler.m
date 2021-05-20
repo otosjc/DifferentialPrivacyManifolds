@@ -2,12 +2,12 @@
 
 % This script compares the Sphere Utility and the Euclid Utility.
 
-clear; path(pathdef); close all
+clear; path(pathdef); %close all
 addpath('../functions/')
 
 
 
-numRounds = 100;
+numRounds = 100;                %number of replicates per sample size
 minSampleSize = 25;
 maxSampleSize = 500;
 StepSize = 25;
@@ -53,7 +53,67 @@ if ToSave == 1
     save(FileName,'sequence','d1','d2','d3','Epsilon','r_m')
 end
 
+%-----------------------------------------------------------------------
+%---                    Figure                                      ---%
+%-----------------------------------------------------------------------
+TextSize = 20;
 
+
+
+scatXYManifold = [];
+scatXYEuclid = [];
+for i = 1:size(d2,2)
+    scatXYManifold = [scatXYManifold;[sequence',d2(:,i)]];
+    scatXYEuclid = [scatXYEuclid;[sequence',d3(:,i)]];
+end
+
+n = size(d1,2);
+MeanManifold = zeros(length(sequence),2);
+MeanEuclid = zeros(length(sequence),2);
+for i = 1: length(sequence)    
+    MeanManifold(i,:) = mean(scatXYManifold(scatXYManifold(:,1)== sequence(i),:));   
+    sdM(i,:) = var(scatXYManifold(scatXYManifold(:,1)== sequence(i),:));
+    sdM(i,:) = sqrt(sdM(i,:));
+    LBM(i,:) = MeanManifold(i,:) - 2*sdM(i,:)/sqrt(n);
+    UBM(i,:) = MeanManifold(i,:) + 2*sdM(i,:)/sqrt(n);
+    
+    MeanEuclid(i,:) = mean(scatXYEuclid(scatXYEuclid(:,1)== sequence(i),:));
+    sdE(i,:) = var(scatXYEuclid(scatXYEuclid(:,1)== sequence(i),:));
+    sdE(i,:) = sqrt(sdE(i,:));
+    LBE(i,:) = MeanEuclid(i,:) - 2*sdE(i,:)/sqrt(n);
+    UBE(i,:) = MeanEuclid(i,:) + 2*sdE(i,:)/sqrt(n);
+    
+    
+    tmp(i) = MeanManifold(i,2)/MeanEuclid(i,2);
+end
+
+
+
+%-----------------------------------------------------------------------
+figure
+plot(MeanManifold(:,1),MeanManifold(:,2),'LineWidth',2,'Color','Blue')
+hold on
+plot(LBM(:,1),LBM(:,2),'LineWidth',1,'Color','Blue')
+hold on
+plot(UBM(:,1),UBM(:,2),'LineWidth',1,'Color','Blue')
+hold on
+fill([sequence'; flipud(sequence')]', [LBM(:,2); flipud(UBM(:,2))], 'b', 'FaceAlpha',0.5); 
+hold on
+plot(MeanEuclid(:,1),MeanEuclid(:,2),'LineWidth',2,'Color','Blue')
+hold on
+plot(LBE(:,1),LBE(:,2),'LineWidth',1,'Color','Red')
+hold on
+plot(UBE(:,1),UBE(:,2),'LineWidth',1,'Color','Red')
+hold on
+fill([sequence'; flipud(sequence')]', [LBE(:,2); flipud(UBE(:,2))], 'r', 'FaceAlpha',0.5); 
+set(gca, 'YScale', 'log','FontSize', TextSize)
+xlabel('Sample size') 
+ylabel('Distance') 
+xlim([25 500])
+if ToSave == 1
+    saveas(gcf,['..\..\images\Utility_SpherevsEuclid_replicates_',num2str(size(d1,2)),'_CI.png']) 
+end
+%-----------------------------------------------------------------------
 
 
 

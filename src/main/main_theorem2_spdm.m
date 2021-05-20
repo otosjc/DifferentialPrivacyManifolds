@@ -6,12 +6,12 @@
 % the distance between these means. This is simulating the sensitivty of
 % the Frechet mean.
 
-clear; path(pathdef); close all
+clear; path(pathdef); %close all
 addpath('../functions/')
 
 ToSave = 0;
 
-n10 = 30;                   % replicates per sample size
+n10 = 30;                            % replicates per sample size
 minSampleSize = 20;
 maxSampleSize = 500;
 StepSize = 10;
@@ -41,8 +41,8 @@ for ii = 1:length(sequence)
         d(ii,j) = dist_SPDM(Xhat1,Xhat2);
     end
 
-
 end
+
 
 
 %- Create the scatter for plots
@@ -54,6 +54,34 @@ end
 if ToSave == 1
     FileName = ['..\..\data\processed\SPDM_Sensitivity_',num2str(length(sequence)),'replicates_',num2str(n10)];
     save(FileName,'sequence','d','V','df','maxR','scatXY')
+end
+
+
+
+%-----------------------------------------------------------------------
+%---                    Figure                                      ---%
+%-----------------------------------------------------------------------
+TextSize = 20;
+averagesDs = zeros(length(sequence),2);
+bound = repelem(2*maxR,length(sequence))./(sequence);
+for i = 1: length(sequence)
+    averagesDs(i,:) = mean(scatXY(scatXY(:,1)== sequence(i),:));
+end
+
+
+figure        
+scatter(scatXY(:,1),scatXY(:,2),2)
+hold on
+plot(averagesDs(:,1),averagesDs(:,2),'LineWidth',2,'Color','Blue')
+hold on
+plot(sequence,bound,'LineWidth',2,'Color','r')
+set(gca, 'YScale', 'log','FontSize', TextSize)
+xlabel('Sample size') 
+ylabel('Distance') 
+xlim([0 500])
+
+if ToSave == 1
+    saveas(gcf,'..\..\images\Sensitivity_SPDM.png') 
 end
 
 
