@@ -11,9 +11,19 @@ function [theta] = dist_Sphere(Y,Z)
 
 %- Output:
 %- theta 				- The distance between Y,Z
+if Y == Z
+    theta = 0;
+end
+[row,~] = size(Y);
+if row ~= 1
+    Y = Y';
+end
+[row,~] = size(Z);
+if row ~= 1
+    Z = Z';
+end
 
 theta   = acos(sum(Y.*Z));
-
 
 end
 

@@ -30,8 +30,6 @@ R = gamrnd(VecSize,1);
 %- The random Laplace in R n(n+1)/2
 LapSamp = VecYbar + R * sigma * U;
 
-
-
 y = zeros(n);
 idx = triu(true(n));
 y(idx) = LapSamp; 

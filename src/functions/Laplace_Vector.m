@@ -10,8 +10,6 @@ function Y = Laplace_Vector(Ybar,sigma)
 %- Output:
 %- Y                - An nxn random sample from Laplace symmetric
 
-
-
 n = size(Ybar,2);
 
 
@@ -26,9 +24,5 @@ R = gamrnd(n,1);
 Y = Ybar + R * sigma * U;
 
 
-
-
- 
- 
 
 end

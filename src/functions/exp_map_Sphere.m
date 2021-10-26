@@ -15,13 +15,17 @@ function [exp_y_delta] = exp_map_Sphere(Y,v,r)
 if nargin == 2
     r = 1;
 end
-
+[row,~] = size(Y);
+if row ~= 1
+    Y = Y';
+end
+[row,~] = size(v);
+if row ~= 1
+    v = v';
+end
 
 vnorm = norm(v);
 exp_y_delta = cos(vnorm)*Y + r*sin(vnorm)*v/vnorm;
-
-
-
 
 end
 

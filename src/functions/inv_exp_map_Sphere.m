@@ -12,7 +12,6 @@ function [inv_exp_y_delta] = inv_exp_map_Sphere(Y,Z)
 %- inv_exp_y_delta          - an 1xd shooting vector from Y to Z
 
 
-
 %- Need this first condition because can't divide by zero in calculation
 if isequal(Y,Z)
     inv_exp_y_delta = zeros(size(Y,1));
