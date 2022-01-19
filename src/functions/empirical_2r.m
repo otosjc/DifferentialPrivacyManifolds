@@ -1,5 +1,18 @@
 function [EmpUpperBound,upperboundK] = empirical_2r(r_m)
+%- Created by Carlos J. Soto cjs7363@psu.edu
 
+%- This function estimates how large |exp_x(y) - exp_x(z)| can be
+%- on a sphere of unit radius with x,y,z \in a ball of radius r_m.
+%- It is estimated by densely sampling triplets on the boundary of the ball
+%- and computing all possibly distances keeping the footpoint of the
+%- exponential map stable (due to symmetry).
+
+%- Input:
+%- r_m             		- scalar
+
+%- Output:
+%- EmpUpperBound		- The empirical bound on |exp_x(y) - exp_x(z)|
+%- upperboundK          - The theoretical bound on |exp_x(y) - exp_x(z)|
 
 
 kappa = 1;

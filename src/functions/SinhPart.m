@@ -3,6 +3,7 @@ function [sinhProd] = SinhPart(X)
 
 %- This function generates the product sinh part of the Laplace 
 % density on SPDM see the overarching function Laplace_SPDM for its usage. 
+%- For more details refer to Hajri et al.
 
 %- Input:
 %- X 

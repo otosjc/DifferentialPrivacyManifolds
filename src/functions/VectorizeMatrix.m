@@ -8,7 +8,7 @@ function [VecX] = VectorizeMatrix(X)
 %- X 						- A symmetric matrix
 
 %- Output:
-%- VecX                     -the upper triangular portion stacked into a vector
+%- VecX                     - the upper triangular portion stacked into a vector
 
 n = size(X,1);
 VecSize = n*(n+1)/2;

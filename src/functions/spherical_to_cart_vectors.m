@@ -4,9 +4,11 @@ function [x,y,z] = spherical_to_cart_vectors(theta,phi,r)
 %- This function converts vectors of theta, phi, r into cartesian coordinates.
 
 %- Input:
-%- X 
+%- theta, phi, r        - vectors of polar coordinates
 
 %- Output:
+%- x,y,z                - corresponding converted cartesian coordinates
+
 if nargin == 2
     r = 1;
 end

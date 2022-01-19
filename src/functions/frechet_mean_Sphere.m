@@ -35,7 +35,6 @@ while (normd > epsilon && iter < Niter)
     end
     Delta = 1/(n) * sum(v,3);
     Delta = squeeze(Delta);
-%     normd = norm_T_SPDM(muhat,Delta);
     normd = norm(Delta);
     norms(iter) = normd;
     if normd > epsilon        

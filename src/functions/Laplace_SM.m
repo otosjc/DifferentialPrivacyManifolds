@@ -6,7 +6,7 @@ function Y = Laplace_SM(Ybar,sigma)
 
 %- Input:
 %- Ybar             - an nxn footprint of the Laplace
-%- sigma            - an R^1 value sd of the Laplace that goes into sinh 
+%- sigma            - an R^1 value sd of the Laplace 
 
 %- Output:
 %- Y                - An nxn random sample from Laplace symmetric

@@ -14,7 +14,6 @@ function [muhat,norms] = frechet_mean_SPDM(Y,epsilon,stepSize)
 %- norms 						- the norm of the average moving direction at each step 
 % (norms should go to zero as iterations increase)
 
-
 %- tuning parameters
 if nargin == 1
     stepSize = 0.5;                 %- can solve for this using a backtracking procedure
@@ -37,7 +36,6 @@ while (normd > epsilon && iter < Niter)
     Delta = 1/(n) * sum(v,3);
     Delta = squeeze(Delta);
     normd = norm_T_SPDM(muhat,Delta);
-%     normd = norm_T_SPDM([1 0; 0 1],Delta);
     norms(iter) = normd;
     if normd > epsilon        
         muhat = exp_map_SPDM(muhat, stepSize*Delta);

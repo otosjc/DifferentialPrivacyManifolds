@@ -10,6 +10,4 @@ run('./src/main/main_theorem2_sphere.m')
 run('./src/main/main_compare_SPDM_SM.m')
 run('./src/main/main_compare_Sphere_Empircal_Euclid_with_MCMC.m')
 
-% For questions please email Carlos Soto: cjs7363@psu.edu
-
-
+For questions please email Carlos Soto: cjs7363@psu.edu
